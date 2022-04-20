@@ -32,7 +32,7 @@ app.get('/api/profile', authMiddleware, async (req, res) => {
     }
     user.amount()
     res.send(user)
-    // console.log('user', user)
+
 });
 
 app.get('/api/adminList', authMiddleware, async (req, res) => {
