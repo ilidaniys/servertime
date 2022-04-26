@@ -75,7 +75,14 @@ user.methods.endTime = function (date) {
 }
 
 user.methods.amount = function () {
-    const amount = this.sessions.session.reduce((total, session) => {
+
+    const sessionInitial = this.sessions.session.filter((session) => {
+        if (session.endTime !== '0'){
+            return session
+        }
+    })
+
+    const amount = sessionInitial.reduce((total, session) => {
         const startTime = new Date(session.startTime)
         const endTime = new Date(session.endTime)
         const sessionDiff = endTime - startTime
