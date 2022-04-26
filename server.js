@@ -62,23 +62,29 @@ app.post('/api/startTime', authMiddleware, async (req, res) => {
 
 app.get('/api/refreshStart', authMiddleware, async (req, res) => {
     const email = req.userEmail.email
-    const user = await User.findOne({email})
-    if (user || null) {
-        const unfinishedSession = () => {
-            return user.sessions.session.find(session => {
-                if (session.startTime !== 0 && session.endTime === '0') {
-                    console.log('checkMetod', session)
-                    return session
-                }
-                return null
-            })
+    if (req.userEmail.email){
+        const user = await User.findOne({email})
+        if (user || null) {
+            const unfinishedSession = () => {
+                return user.sessions.session.find(session => {
+                    if (session.startTime !== 0 && session.endTime === '0') {
+                        console.log('checkMetod', session)
+                        return session
+                    }
+                    return null
+                })
+            }
+            const adminRole = (user.userRole === 'admin')
+            const response = {
+                unSession: unfinishedSession(),
+                adminRole
+            }
+            res.send(response)
         }
-        const adminRole = (user.userRole === 'admin')
-        const response = {
-            unSession: unfinishedSession(),
-            adminRole
-        }
-        res.send(response)
+    } else {
+        const unRegister = false
+        console.log('unRegister', unRegister)
+        res.send(unRegister)
     }
 })
 

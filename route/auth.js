@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 
 
 function generationToken (user) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1800s'})
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '99999999999s'})
 }
 
 router.post('/api/login', async (req, res) => {
