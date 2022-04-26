@@ -10,7 +10,7 @@ const User = require('./model/user')
 const authMiddleware = require('./middleware/authentificateToken')
 
 const port = process.env.PORT || 5000;
-const URI = `mongodb+srv://Andreu:7xZ02jGyp84AfgQv@cluster0.tb5v8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
+const URI = process.env.URL
 
 app.use(bodyParser.json());
 app.use(cors());
